@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Ajouter un événement</title>
+   <!-- <link rel="stylesheet" th:href="@{/webjars/bootswatch/dist/minty/bootstrap.css}"> -->
+   <link th:replace="layout/default-layout::link">
+   <script type="text/javascript"></script>
+</head>
+
+<body th:replace="layout/default-layout::body(title='Ajouter un événement')">
+   <div th:fragment="content">
+      <div class="mt-3 mb-4">
+         <a class="btn btn-primary" th:href="@{/events}">Retour</a>
+       </div>
+
+     <form th:action="@{/create}" th:object="${eventForm}"
+                      method="POST" enctype="multipart/form-data">
+         <div>
+             <label for="name" class="form-label mt-4">
+                 Nom
+             </label>
+             <input type="text" class="form-control mt-2" name="name" 
+                    th:classappend="${#fields.hasErrors('name')}? 'is-invalid'"  
+                    th:field="*{name}">
+             <span th:if="${#fields.hasErrors('name')}" 
+                   th:errors="*{name}" class="invalid-feedback">Erreur sur le nom</span>
+         </div>
+         <div>
+             <label for="description" class="form-label mt-4">
+                Description
+             </label>
+             <textarea class="form-control mt-2" 
+                       th:classappend="${#fields.hasErrors('description')}? 'is-invalid'" 
+                       name="description" 
+                       th:field="*{description}"></textarea>
+             <span th:if="${#fields.hasErrors('description')}" 
+                   th:errors="*{description}" class="invalid-feedback">Erreur sur la description</span>
+         </div>
+         <div>
+            <label for="date" class="form-label mt-4">
+                Date
+            </label>
+            <input type="date" class="form-control mt-2" 
+                   th:classappend="${#fields.hasErrors('date')}? 'is-invalid'" 
+                   name="date" 
+                   th:field="*{date}">
+            <span th:if="${#fields.hasErrors('date')}" 
+                  th:errors="*{date}" class="invalid-feedback">Erreur sur la date</span>
+        </div>
+        <div>
+            <label for="location" class="form-label mt-4">
+                Lieu
+            </label>
+            <input type="text" class="form-control mt-2" 
+                   th:classappend="${#fields.hasErrors('location')}? 'is-invalid'" 
+                   name="location" 
+                   th:field="*{location}">
+            <span th:if="${#fields.hasErrors('location')}" 
+                  th:errors="*{location}" class="invalid-feedback">Erreur sur le lieu</span>
+        </div>
+        <div>
+            <label for="price" class="form-label mt-4">
+                Prix
+            </label>
+            <input type="number" class="form-control mt-2" 
+                   th:classappend="${#fields.hasErrors('price')}? 'is-invalid'" 
+                   name="price" 
+                   th:field="*{price}" step="0.01">
+            <span th:if="${#fields.hasErrors('price')}" 
+                  th:errors="*{price}" class="invalid-feedback">Erreur sur le prix</span>
+        </div>
+         <div>
+             <label class="form-label mt-4" for="file">Photo</label>
+             <input type="file" name="file" class="form-control mt-2">
+         </div>
+         <div class="mt-4">
+             <input class="btn btn-success" type="submit" value="Enregistrer">
+         </div>
+     </form>
+   </div>
+</body>
+
+</html>

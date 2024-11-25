@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>update event</title>
+    <link th:replace="layout/default-layout::link">
+</head>
+<body th:replace="layout/default-layout::body(title='Edit event')">
+    <div th:fragment="content">
+        <div class="mt-3 mb-4">
+            <a class="btn btn-primary" th:href="@{/events}">Back</a>
+          </div>
+
+        <form th:action="@{|/events/${id}/edit|}" th:object="${eventForm}"
+               method="POST" enctype="multipart/form-data">
+            <div>
+                <label for="name" class="form-lablel mt-4">
+                    Name
+                </label>
+                <input type="text" class="form-control mt-2" name="name" th:classappend="${#fields.hasErrors('name')}?is-invalid"  th:field="*{name}">
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback">Name Error</span>
+            </div>
+            <div>
+                <label for="description" class="form-lablel mt-4">
+                    description
+                </label>
+                <input type="number" class="form-control mt-2" th:classappend="${#fields.hasErrors('description')}?is-invalid" name="description" th:field="*{description}">
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="invalid-feedback">description Error</span>
+            </div>
+            <div>
+                <img th:src="${eventForm.photo!=null}?@{|/images/${eventForm.photo}|}:@{/images/default.png}" 
+                alt="photo"
+                class="img-rounded img-responsive"
+                style="max-height: 50px; max-width: 50px;">
+                <label class="form-lablel mt-4" for="file">Photo</label>
+                <input type="file" name="file" class="form-control mt-2">
+            </div>
+            <div class="mt-4">
+                <input class="btn btn-success" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+    </body>
+</html>
